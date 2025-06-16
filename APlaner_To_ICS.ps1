@@ -36,8 +36,8 @@ $ics = @(
 )
 
 foreach ($zeile in $daten) {
-Write-Host "`nAnalysiere Zeile: $zeile"
-Write-Host "→ Erster Eintrag (Monat?): '$($teile[0])'"
+    Write-Host "`nAnalysiere Zeile: $zeile"
+    Write-Host "→ Erster Eintrag (Monat?): '$($teile[0])'"
     $teile = $zeile -split ";"
     $monat = $teile[0]
     if (-not $monate.ContainsKey($monat)) { continue }
@@ -80,8 +80,6 @@ try {
     git commit -m "Automatisches Update: $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push
 
-    # ─── Löschung bei Erfolg ─────────────────────────────────────
-    Remove-Item -Path $icsPath -Force
     Write-Host "`n✅ Erfolgreich gepusht und lokale Datei gelöscht."
 } catch {
     Write-Error "❌ Fehler beim Push oder Dateizugriff: $_"
