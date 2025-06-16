@@ -2,8 +2,8 @@
 $config = @{
     jahr = 2025
     repoPath = "C:\Development\aplaner-to-ics"        # Lokales Git-Repo
-    icsDateiname = "docs\Jahreskalender_2025.ics"    # Name der .ics-Datei
-    csvDatei = "Jahresübersicht.csv"       # CSV im selben Ordner wie Skript
+    icsDateiname = "docs\calendar.ics"    # Name der .ics-Datei
+    csvDatei = "export.csv"       # CSV im selben Ordner wie Skript
 }
 
 # ─── VERZEICHNIS WECHSELN ────────────────────────────────────────
@@ -14,15 +14,9 @@ $csvPath = Join-Path $scriptDir $config.csvDatei
 $icsPath = Join-Path $scriptDir $config.icsDateiname
 $repoIcsPath = Join-Path $config.repoPath $config.icsDateiname
 
-# ─── ÜBERPRÜFUNG: Datei schon vorhanden? ─────────────────────────
-if (Test-Path $icsPath) {
-    Write-Host "🕒 Datei $($config.icsDateiname) existiert bereits. Vorgang wird übersprungen."
-    exit 0
-}
-
 # ─── ICS GENERIEREN ──────────────────────────────────────────────
 $kuerzelMap = @{
-    "A"="Anwesend im Büro"; "O"="HomeOffice"; "U"="Urlaub"
+    "A"="Büro"; "O"="HomeOffice"; "U"="Urlaub"
     "P"="Urlaub geplant"; "H"="½ Urlaub geplant"; "½"="½ Urlaub"
     "S"="Sonderurlaub"; "D"="Dienstreise"; "Z"="Zusatzarbeitstag"
 }
@@ -77,9 +71,8 @@ $ics -join "`r`n" | Set-Content -Path $icsPath -Encoding UTF8
 
 # ─── GIT PUSH ────────────────────────────────────────────────────
 try {
-    Copy-Item -Path $icsPath -Destination $repoIcsPath -Force
     Set-Location $config.repoPath
-    git add $config.icsDateiname
+    git add -A
     git commit -m "Automatisches Update: $(Get-Date -Format 'yyyy-MM-dd HH:mm')"
     git push
 
