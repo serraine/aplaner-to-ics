@@ -9,6 +9,7 @@ $config = @{
 }
 
 # ─── VERZEICHNIS WECHSELN ────────────────────────────────────────
+$icsDateiname = $config.icsDateiname
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptDir
 
@@ -23,7 +24,7 @@ $repoIcsPath = Join-Path $config.repoPath $config.icsDateiname
   1. An- / Abwesenheitsplaner starten
   2. Ansicht -> Jahresübersicht -> Mitarbeiter auswählen
   3. F12 -> Speichern unter: $scriptDir\export.csv
-  4. Die .ics-Datei ist unter https://serraine.github.io/aplaner-to-ics/$config.icsDateiname erreichbar
+  4. Die .ics-Datei ist unter https://serraine.github.io/aplaner-to-ics/$icsDateiname erreichbar
 ──────────────────────────────────────────────
 "@ | Write-Host -ForegroundColor Cyan
 
