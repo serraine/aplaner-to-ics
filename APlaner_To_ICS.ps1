@@ -16,6 +16,17 @@ $csvPath = Join-Path $scriptDir $config.csvDatei
 $icsPath = Join-Path $scriptDir $config.icsDateiname
 $repoIcsPath = Join-Path $config.repoPath $config.icsDateiname
 
+@"
+──────────────────────────────────────────────
+ 🗓️  APlaner → ICS Konvertierungsskript
+──────────────────────────────────────────────
+  1. An- / Abwesenheitsplaner starten
+  2. Ansicht -> Jahresübersicht -> Mitarbeiter auswählen
+  3. F12 -> Speichern unter: $scriptDir\export.csv
+──────────────────────────────────────────────
+"@ | Write-Host -ForegroundColor Cyan
+
+
 # ─── ICS GENERIEREN ──────────────────────────────────────────────
 $kuerzelMap = @{
     "A"="Büro"; "O"="HomeOffice"; "U"="Urlaub"
