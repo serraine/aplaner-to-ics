@@ -36,8 +36,6 @@ $ics = @(
 )
 
 foreach ($zeile in $daten) {
-    Write-Host "`nAnalysiere Zeile: $zeile"
-    Write-Host "→ Erster Eintrag (Monat?): '$($teile[0])'"
     $teile = $zeile -split ";"
     $monat = $teile[0]
     if (-not $monate.ContainsKey($monat)) { continue }
